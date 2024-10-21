@@ -63,6 +63,18 @@ public class Payment {
     };
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Payment payment = (Payment) o;
+        return day == payment.day &&
+                month == payment.month &&
+                year == payment.year &&
+                amount == payment.amount &&
+                Objects.equals(fullname, payment.fullname);
+    }
+
+    @Override
     public String toString() {
         return "Payment{" +
                 "fullname='" + fullname + '\'' +
