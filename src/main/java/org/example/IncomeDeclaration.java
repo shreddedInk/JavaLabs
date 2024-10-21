@@ -14,6 +14,8 @@ public class IncomeDeclaration {
     private final double[] totalIncome = new double[monthsAmount];
     private final double[] taxes = new double[monthsAmount];
     private final double totalTax;
+
+
     public  IncomeDeclaration(int year, String fullName, IncomeForm[] forms){
         this.year = year;
         this.fullName = fullName;
@@ -34,6 +36,8 @@ public class IncomeDeclaration {
         }
         this.totalTax = Arrays.stream(this.taxes).sum();
     }
+
+
     private static double calculateTax(double prevTotalIncome, double currTotalIncome, double nextIncome){
         if(currTotalIncome <= lowIncome){
             return 0;

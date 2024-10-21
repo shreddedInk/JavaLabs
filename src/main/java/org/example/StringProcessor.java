@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.regex.*;
-
 public class StringProcessor {
 
     public static String copyString(String s, int N) {
@@ -24,7 +22,6 @@ public class StringProcessor {
             count++;
             index++;
         }
-
         return count;
     }
 
@@ -43,37 +40,35 @@ public class StringProcessor {
     }
 
     public static String reverseString(String str) {
-        String[] words = str.split("\\s+");
-        String[] spaces = str.split("\\S+");
+        String[] words = str.split(" ");
         StringBuilder reversed = new StringBuilder();
-        int spaceIndex = 0;
-        if (str.startsWith(" ")) {
-            for(int i=0; i<spaces[0].length(); i++){
-                reversed.append(" ");
-            }
-            spaceIndex = 1;
-        }
+
         for (int i = words.length - 1; i >= 0; i--) {
             reversed.append(words[i]);
-            if (spaceIndex < spaces.length) {
-                reversed.append(spaces[spaceIndex]);
-                spaceIndex++;
+            if (i > 0) {
+                reversed.append(" ");
             }
         }
         return reversed.toString();
     }
 
+
     public static String hexDecoding(String str) {
-        String regex = "0x[0-9A-Fa-f]+";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(str);
         StringBuilder result = new StringBuilder();
-        while (matcher.find()) {
-            String hex = matcher.group();
-            long decimal = Long.parseLong(hex.substring(2), 16);
-            matcher.appendReplacement(result, Long.toString(decimal));
+        String[] parts = str.split(" ");
+
+        for (String part : parts) {
+            if (part.startsWith("0x")) {
+                try {
+                    long decimal = Long.parseLong(part.substring(2), 16);
+                    result.append(decimal).append(" ");
+                } catch (NumberFormatException e) {
+                    result.append(part).append(" ");
+                }
+            } else {
+                result.append(part).append(" ");
+            }
         }
-        matcher.appendTail(result);
-        return result.toString();
+        return result.toString().trim();
     }
 }
