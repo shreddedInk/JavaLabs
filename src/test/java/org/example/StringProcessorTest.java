@@ -35,7 +35,7 @@ class StringProcessorTest {
         assertEquals(0, StringProcessor.countEntries("banana", "x"));
 
         // Edge case: Target string is longer than source string
-        assertEquals(0, StringProcessor.countEntries("abc", "abcd"));
+        assertEquals(4, StringProcessor.countEntries("ababababa", "aba"));
 
         // Exception case: Target string is empty
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -91,5 +91,7 @@ class StringProcessorTest {
         assertEquals("There are 15 and 255 items", StringProcessor.hexDecoding("There are 0xF and 0xFF items"));
 
         assertEquals("No hex here", StringProcessor.hexDecoding("No hex here"));
+
+        assertEquals("123456789987654321", StringProcessor.hexDecoding("0x1B69B4BE052FAB1"));
     }
 }
