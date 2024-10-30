@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.*;
-
 public class FinanceReportProcessor {
 
     public static FinanceReport filterPaymentsByName(FinanceReport report, char letter) {
