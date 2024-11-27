@@ -1,31 +1,28 @@
 package org.example.thirdlab.products;
 
 import org.example.thirdlab.Pack;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PackedPieceProductTest {
-    private PackedPieceIProduct packedPieceProduct;
-    private Pack pack;
-    private PieceProduct pieceProduct;
-    @Before
-    public void setUp(){
-        pieceProduct = new PieceProduct("Cucumber","Green",100);
-        pack = new Pack("Plastic bag", 0.1);
-        packedPieceProduct = new PackedPieceIProduct(5,pieceProduct,pack);
-    }
+    PieceProduct product = new PieceProduct("Makaroni", "Sweety", 100);
+    Pack pack = new Pack("Plastic bag", 0.1);
+
     @Test
-    public void getNettoMass() {
-        Assertions.assertEquals(500, packedPieceProduct.getNettoMass());
+    public void testWeightCalculations() {
+        PackedPieceIProduct packedProduct = new PackedPieceIProduct(5, product, pack);
+
+        assertEquals(500, packedProduct.getNettoMass());
+        assertEquals(500.1, packedProduct.getBruttoMass(), 0.01);
     }
 
     @Test
-    public void getBruttoMass() {
-        Assertions.assertEquals(500.1, packedPieceProduct.getBruttoMass());
-    }
-    @Test
-    public void exceptionTest(){
-        Throwable exception1 = Assertions.assertThrows(IllegalArgumentException.class, ()->{new PackedPieceIProduct(-1,pieceProduct,pack);});
+    public void testNegativeQuantity() {
+        try {
+            new PackedPieceIProduct(-1, product, pack);
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
     }
 }
