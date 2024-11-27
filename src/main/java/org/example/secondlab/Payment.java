@@ -1,4 +1,4 @@
-package org.example;
+package org.example.secondlab;
 
 import java.util.Objects;
 
