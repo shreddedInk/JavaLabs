@@ -1,6 +1,6 @@
 package org.example.thirdlab.products;
 
-import org.example.thirdlab.*;
+import org.example.thirdlab.Pack;
 import org.example.thirdlab.interfaces.IProduct;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,27 +14,29 @@ public class ProductBatchTest {
     Pack packet = new Pack("Kraft paper bag", 0.2);
     Pack box = new Pack("Big box abudabi", 0.4);
     PieceProduct juice = new PieceProduct("Juice", "Made of fruits", 1);
-    PackedPieceIProduct bottleOfJuice = new PackedPieceIProduct(10, juice, bottle);
+    PackedPieceProduct bottleOfJuice = new PackedPieceProduct(10, juice, bottle);
     WeightProduct candy = new WeightProduct("Candy", "Not recommended by dentists");
-    PackedWeightIProduct wrappedCandy = new PackedWeightIProduct(candy, wrap, 0.015);
-    PackedIProductSet packedProductSet;
+    PackedWeightProduct wrappedCandy = new PackedWeightProduct(candy, wrap, 0.015);
+    PackedProductSet packedProductSet;
     IProduct[] packSet;
     IProduct[] packBatch;
     ProductBatch productBatch;
+
     @Before
-    public void setUp(){
+    public void setUp() {
         packSet = new IProduct[]{bottleOfJuice, wrappedCandy};
-        packedProductSet = new PackedIProductSet("Product set", packet,packSet);
+        packedProductSet = new PackedProductSet("Product set", packet, packSet);
         packBatch = new IProduct[]{bottleOfJuice, wrappedCandy, packedProductSet};
-        productBatch =new ProductBatch(packBatch, "batch for test");
+        productBatch = new ProductBatch(packBatch, "batch for test");
     }
+
     @Test
     public void getProducts() {
-        Assertions.assertEquals(Arrays.toString(packBatch),Arrays.toString(productBatch.getProducts()));
+        Assertions.assertEquals(Arrays.toString(packBatch), Arrays.toString(productBatch.getProducts()));
     }
 
     @Test
     public void getBatchMass() {
-        Assertions.assertEquals(20.432,productBatch.getBatchMass());
+        Assertions.assertEquals(20.432, productBatch.getBatchMass());
     }
 }

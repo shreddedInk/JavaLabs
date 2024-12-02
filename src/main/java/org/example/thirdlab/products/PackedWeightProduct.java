@@ -5,11 +5,11 @@ import org.example.thirdlab.interfaces.IProduct;
 
 import java.util.Objects;
 
-public class PackedWeightIProduct extends WeightProduct implements IProduct {
+public class PackedWeightProduct extends WeightProduct implements IProduct {
     private Pack pack;
     private double weight;
 
-    public PackedWeightIProduct(Product product, Pack pack, double weight) {
+    public PackedWeightProduct(Product product, Pack pack, double weight) {
         super(product.getName(), product.getDescription());
         if (pack.getPackWeight() <= 0) {
             throw new IllegalArgumentException("Некорректный вес упаковки");
@@ -43,7 +43,7 @@ public class PackedWeightIProduct extends WeightProduct implements IProduct {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PackedWeightIProduct that)) return false;
+        if (!(o instanceof PackedWeightProduct that)) return false;
         if (!super.equals(o)) return false;
         return Double.compare(getWeight(), that.getWeight()) == 0 && Objects.equals(getPack(), that.getPack());
     }

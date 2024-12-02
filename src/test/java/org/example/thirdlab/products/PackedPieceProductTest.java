@@ -2,6 +2,7 @@ package org.example.thirdlab.products;
 
 import org.example.thirdlab.Pack;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PackedPieceProductTest {
@@ -10,7 +11,7 @@ public class PackedPieceProductTest {
 
     @Test
     public void testWeightCalculations() {
-        PackedPieceIProduct packedProduct = new PackedPieceIProduct(5, product, pack);
+        PackedPieceProduct packedProduct = new PackedPieceProduct(5, product, pack);
 
         assertEquals(500, packedProduct.getNettoMass());
         assertEquals(500.1, packedProduct.getBruttoMass(), 0.01);
@@ -19,7 +20,7 @@ public class PackedPieceProductTest {
     @Test
     public void testNegativeQuantity() {
         try {
-            new PackedPieceIProduct(-1, product, pack);
+            new PackedPieceProduct(-1, product, pack);
             fail("Expected IllegalArgumentException was not thrown");
         } catch (IllegalArgumentException e) {
             assertTrue(true);

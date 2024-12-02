@@ -3,25 +3,25 @@ package org.example.thirdlab.filters;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class ContainsFilterTest {
+public class EndStringFilterTest {
     String str = "Мама мыла раму";
 
     @Test
     public void apply() {
-        ContainsFilter filter1 = new ContainsFilter("Мама");
-        ContainsFilter filter2 = new ContainsFilter("раму");
+        EndStringFilter filter1 = new EndStringFilter("раму");
+        EndStringFilter filter2 = new EndStringFilter("мыла раму");
         Assertions.assertTrue(filter1.apply(str));
         Assertions.assertTrue(filter2.apply(str));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void fail() {
-        ContainsFilter filter3 = new ContainsFilter("");
+        EndStringFilter filter3 = new EndStringFilter("");
     }
 
     @Test
     public void apply2() {
-        ContainsFilter filter4 = new ContainsFilter("NONONO");
+        EndStringFilter filter4 = new EndStringFilter("Мама");
         Assertions.assertFalse(filter4.apply(str));
     }
 }

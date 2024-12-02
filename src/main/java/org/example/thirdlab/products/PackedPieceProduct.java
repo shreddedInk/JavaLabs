@@ -5,11 +5,11 @@ import org.example.thirdlab.interfaces.IProduct;
 
 import java.util.Objects;
 
-public class PackedPieceIProduct extends PieceProduct implements IProduct {
+public class PackedPieceProduct extends PieceProduct implements IProduct {
     private final int amount;
     private final Pack pack;
 
-    public PackedPieceIProduct(int amount, PieceProduct pieceProduct, Pack pack) {
+    public PackedPieceProduct(int amount, PieceProduct pieceProduct, Pack pack) {
         super(pieceProduct.getName(), pieceProduct.getDescription(), pieceProduct.getWeight());
         if (amount <= 0) {
             throw new IllegalArgumentException("Некорректное кол-во товара");
@@ -29,7 +29,7 @@ public class PackedPieceIProduct extends PieceProduct implements IProduct {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PackedPieceIProduct that)) return false;
+        if (!(o instanceof PackedPieceProduct that)) return false;
         if (!super.equals(o)) return false;
         return getAmount() == that.getAmount() && Objects.equals(getPack(), that.getPack());
     }

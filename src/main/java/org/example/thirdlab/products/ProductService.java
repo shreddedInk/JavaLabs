@@ -4,64 +4,53 @@ import org.example.thirdlab.interfaces.IFilter;
 import org.example.thirdlab.interfaces.IProduct;
 
 public class ProductService {
-    public static int countByFilter(ProductBatch batch, IFilter IFilter) {
-        if (batch == null || IFilter == null) {
-            throw new NullPointerException("Партия или фильтр не существуют");
+
+    public static int countByFilter(ProductBatch batch, IFilter filter) {
+        if (batch == null || filter == null) {
+            throw new NullPointerException("Batch or filter cannot be null");
         }
+
         int count = 0;
-        for (IProduct item : batch.getProducts()) {
-            if (IFilter.apply(item.getName())) {
+        for (IProduct product : batch.getProducts()) {
+            if (filter.apply(product.getName())) {
                 count++;
             }
         }
         return count;
     }
 
-    public static int countByFilterDeep(ProductBatch batch, IFilter IFilter) {
-        if (batch == null || IFilter == null) {
-            throw new NullPointerException("Партия или фильтр не существуют");
+    public static int countByFilterDeep(ProductBatch batch, IFilter filter) {
+        if (batch == null || filter == null) {
+            throw new NullPointerException("Batch or filter cannot be null");
         }
-        int count = 0;
-        IProduct[] products = batch.getProducts();
-        for (IProduct item : products) {
-            if (item instanceof PackedIProductSet) {
-//                for (int i = 0; i < ((PackedProductSet) item).getPackedItems().length; i++) {
-//                    if (filter.apply(((PackedProductSet) item).getPackedItems()[i].getName())) {
-//                        count++;
-//                    }
-//                }
-                count += countByFilterDeepRecur(item, IFilter);
-            }
-        }
-        return count;
-    }
 
-    private static int countByFilterDeepRecur(IProduct product, IFilter IFilter) {
         int count = 0;
-
-        if (product instanceof PackedIProductSet packedProductSet) {
-            for (IProduct packedItem : packedProductSet.getPackedItems()) {
-                count += countByFilterDeepRecur(packedItem, IFilter);
+        for (IProduct product : batch.getProducts()) {
+            if (product instanceof PackedProductSet packedSet) {
+                for (IProduct packedProduct : packedSet.getPackedItems()) {
+                    if (filter.apply(packedProduct.getName())) {
+                        count++;
+                    }
+                }
+            } else if (filter.apply(product.getName())) {
+                count++;
             }
-        }
-        if (IFilter.apply(product.getName())) {
-            count++;
         }
         return count;
     }
 
     public static boolean checkAllWeighted(ProductBatch batch) {
-        IProduct[] products = batch.getProducts();
-        return checkAllWeightedRecur(products);
-    }
+        if (batch == null) {
+            throw new NullPointerException("Batch cannot be null");
+        }
 
-    private static boolean checkAllWeightedRecur(IProduct[] products) {
-        for (IProduct item : products) {
-            if (!(item instanceof WeightProduct)) {
-                if (item instanceof PackedIProductSet deepSet) {
-                    IProduct[] deepSetItem = deepSet.getPackedItems();
-                    if (!checkAllWeightedRecur(deepSetItem)) {
-                        return false;
+        for (IProduct product : batch.getProducts()) {
+            if (!(product instanceof WeightProduct)) {
+                if (product instanceof PackedProductSet packedSet) {
+                    for (IProduct packedProduct : packedSet.getPackedItems()) {
+                        if (!(packedProduct instanceof WeightProduct)) {
+                            return false;
+                        }
                     }
                 } else {
                     return false;
@@ -70,5 +59,4 @@ public class ProductService {
         }
         return true;
     }
-
 }

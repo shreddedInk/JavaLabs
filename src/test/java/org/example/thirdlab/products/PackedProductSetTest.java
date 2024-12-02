@@ -1,6 +1,6 @@
 package org.example.thirdlab.products;
 
-import org.example.thirdlab.*;
+import org.example.thirdlab.Pack;
 import org.example.thirdlab.interfaces.IProduct;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +13,16 @@ public class PackedProductSetTest {
     Pack wrap = new Pack("Candy wrapper", 0.001);
     Pack packet = new Pack("Kraft paper bag", 0.2);
     PieceProduct juice = new PieceProduct("Juice", "Made of fruits", 1);
-    PackedPieceIProduct bottleOfJuice = new PackedPieceIProduct(1, juice, bottle);
+    PackedPieceProduct bottleOfJuice = new PackedPieceProduct(1, juice, bottle);
     WeightProduct candy = new WeightProduct("Candy", "Not recommended by dentists");
-    PackedWeightIProduct wrappedCandy = new PackedWeightIProduct(candy, wrap, 0.015);
-    PackedIProductSet packedProductSet;
+    PackedWeightProduct wrappedCandy = new PackedWeightProduct(candy, wrap, 0.015);
+    PackedProductSet packedProductSet;
     IProduct[] packaged;
+
     @Before
     public void setUp() {
         packaged = new IProduct[]{bottleOfJuice, wrappedCandy};
-        packedProductSet = new PackedIProductSet("Упакованный набор товаров", packet, packaged);
+        packedProductSet = new PackedProductSet("Упакованный набор товаров", packet, packaged);
     }
 
     @Test

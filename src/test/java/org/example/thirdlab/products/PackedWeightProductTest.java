@@ -6,16 +6,17 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class PackedWeightProductTest {
-    private PackedWeightIProduct packedWeightProduct;
+    private PackedWeightProduct packedWeightProduct;
     private Pack pack;
     private Product product;
 
     @Before
-    public void setUp(){
-        product = new Product("Orange","Sour");
-        pack = new Pack("Box",1000);
-        packedWeightProduct = new PackedWeightIProduct(product,pack,10.5);
+    public void setUp() {
+        product = new Product("Orange", "");
+        pack = new Pack("Box", 1000);
+        packedWeightProduct = new PackedWeightProduct(product, pack, 10.5);
     }
+
     @Test
     public void getNettoMass() {
         Assertions.assertEquals(10.5, packedWeightProduct.getNettoMass());
@@ -25,8 +26,9 @@ public class PackedWeightProductTest {
     public void getBruttoMass() {
         Assertions.assertEquals(1010.5, packedWeightProduct.getBruttoMass());
     }
-    @Test
-    public void exceptionTest(){
-        Throwable exception1 = Assertions.assertThrows(IllegalArgumentException.class, ()->{new PackedWeightIProduct(product,pack,-1);});
+
+    @Test(expected = IllegalArgumentException.class)
+    public void exceptionTest() {
+        new PackedWeightProduct(product, pack, -1);
     }
 }

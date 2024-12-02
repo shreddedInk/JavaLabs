@@ -3,12 +3,12 @@ package org.example.thirdlab.products;
 import org.example.thirdlab.Pack;
 import org.example.thirdlab.interfaces.IProduct;
 
-public class PackedIProductSet implements IProduct {
+public class PackedProductSet implements IProduct {
     private final String name;
     private final Pack pack;
     private final IProduct[] packedItems;
 
-    public PackedIProductSet(String name, Pack pack, IProduct[] packedItems) {
+    public PackedProductSet(String name, Pack pack, IProduct[] packedItems) {
         this.name = name;
         this.pack = pack;
         this.packedItems = packedItems;

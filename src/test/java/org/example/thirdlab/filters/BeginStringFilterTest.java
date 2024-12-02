@@ -1,16 +1,21 @@
 package org.example.thirdlab.filters;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
-class BeginStringFilterTest {
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+
+public class BeginStringFilterTest {
+    String str = "Мама мыла раму";
+
     @Test
-    void apply() {
-        String str = "Мама мыла раму";
+    public void apply() {
         BeginStringFilter filter1 = new BeginStringFilter("Мама");
         BeginStringFilter filter2 = new BeginStringFilter("раму");
         Assertions.assertTrue(filter1.apply(str));
         Assertions.assertFalse(filter2.apply(str));
-        Throwable exception = Assertions.assertThrows(IllegalArgumentException.class, ()->{
-            BeginStringFilter filter3 = new BeginStringFilter("");});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void fail() {
+        BeginStringFilter filter3 = new BeginStringFilter("");
     }
 }
