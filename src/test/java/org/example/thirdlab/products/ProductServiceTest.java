@@ -31,9 +31,9 @@ class ProductServiceTest {
     @BeforeEach
     public void setUp() {
         packSet = new IProduct[]{bottleOfJuice, wrappedCandy, packetOfCoffeeBeans};
-        packedProductSet = new PackedProductSet("Lemon tree", box, packSet);
+        packedProductSet = new PackedProductSet("DSADASDA", box, packSet);
         packSet2 = new IProduct[]{wrappedCandy, packedProductSet};
-        packedProductSet2 = new PackedProductSet("LemonTree the best lemons for anyone", box, packSet2);
+        packedProductSet2 = new PackedProductSet("Lemon Tree the best lemons for anyone", box, packSet2);
         packBatch = new IProduct[]{bottleOfJuice, wrappedCandy, packedProductSet2};
         productBatch = new ProductBatch(packBatch, "batch with blood");
         filter = new BeginStringFilter("Lemon");
