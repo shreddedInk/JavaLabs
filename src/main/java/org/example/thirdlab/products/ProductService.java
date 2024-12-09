@@ -25,20 +25,21 @@ public class ProductService {
         IProduct[] products = batch.getProducts();
         for (IProduct item : products) {
             if (item instanceof PackedProductSet) {
-           }
-                count += countByFilterDeepRecur(item, filter);
             }
+            count += countByFilterDeepRecur(item, filter);
+        }
         return count;
     }
-    private static int countByFilterDeepRecur(IProduct product, IFilter filter){
+
+    private static int countByFilterDeepRecur(IProduct product, IFilter filter) {
         int count = 0;
 
-        if(product instanceof PackedProductSet packedProductSet){
-            for(IProduct packedItem: packedProductSet.getPackedItems()){
-                count+=countByFilterDeepRecur(packedItem, filter);
+        if (product instanceof PackedProductSet packedProductSet) {
+            for (IProduct packedItem : packedProductSet.getPackedItems()) {
+                count += countByFilterDeepRecur(packedItem, filter);
             }
         }
-        if(filter.apply(product.getName())){
+        if (filter.apply(product.getName())) {
             count++;
         }
         return count;
@@ -49,16 +50,16 @@ public class ProductService {
         IProduct[] products = batch.getProducts();
         return checkAllWeightedRecur(products);
     }
+
     private static boolean checkAllWeightedRecur(IProduct[] products) {
-        for(IProduct item: products){
-            if(!(item instanceof WeightProduct)){
-                if(item instanceof PackedProductSet deepSet){
+        for (IProduct item : products) {
+            if (!(item instanceof WeightProduct)) {
+                if (item instanceof PackedProductSet deepSet) {
                     IProduct[] deepSetItem = deepSet.getPackedItems();
-                    if(!checkAllWeightedRecur(deepSetItem)){
+                    if (!checkAllWeightedRecur(deepSetItem)) {
                         return false;
                     }
-                }
-                else {
+                } else {
                     return false;
                 }
             }
