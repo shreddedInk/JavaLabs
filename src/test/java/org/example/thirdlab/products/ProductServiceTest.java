@@ -2,57 +2,76 @@ package org.example.thirdlab.products;
 
 import org.example.thirdlab.Pack;
 import org.example.thirdlab.filters.BeginStringFilter;
+import org.example.thirdlab.filters.ContainsFilter;
+import org.example.thirdlab.filters.EndStringFilter;
 import org.example.thirdlab.interfaces.IProduct;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ProductServiceTest {
-    Pack bottle = new Pack("Glass bottle", 0.1);
-    Pack wrap = new Pack("Candy wrapper", 0.001);
-    Pack packet = new Pack("Kraft paper bag", 0.2);
-    Pack box = new Pack("Big box abudabi", 0.4);
-    PieceProduct juice = new PieceProduct("Juice", "Made of fruits", 1);
-    WeightProduct candy = new WeightProduct("Candy", "Not recommended by dentists");
-    WeightProduct coffeeBeans = new WeightProduct("Coffee beans", "Smells great!");
-    PackedPieceProduct bottleOfJuice = new PackedPieceProduct(10, juice, bottle);
-    PackedWeightProduct wrappedCandy = new PackedWeightProduct(candy, wrap, 0.015);
-    PackedWeightProduct packetOfCoffeeBeans = new PackedWeightProduct(coffeeBeans, packet, 3.5);
-    IProduct[] packSet;
-    IProduct[] packSet2;
-    PackedProductSet packedProductSet;
-    PackedProductSet packedProductSet2;
-    IProduct[] packBatch;
+    Pack bottle = new Pack("Glass Bottle", 0.1);
+    Pack wrapper = new Pack("Candy Wrapper", 0.001);
+    Pack bag = new Pack("Paper Bag", 0.2);
+    Pack box = new Pack("Storage Box", 0.4);
+    Pack lemonPack = new Pack("Lemon Packaging", 0.5);
+    PieceProduct juice = new PieceProduct("Apple Juice", "Made from fresh apples", 1);
+    PieceProduct lemonTree = new PieceProduct("Lemon Tree", "Fresh and organic", 1);
+    WeightProduct candy = new WeightProduct("Chocolate Candy", "Sweet and delicious");
+    WeightProduct coffee = new WeightProduct("Coffee Beans Bag", "Rich aroma and taste");
+    PackedPieceProduct juiceBottle = new PackedPieceProduct(10, juice, bottle);
+    PackedWeightProduct candyWrapper = new PackedWeightProduct(candy, wrapper, 0.015);
+    PackedWeightProduct coffeeBag = new PackedWeightProduct(coffee, bag, 3.5);
+    PackedPieceProduct lemonTreeBox = new PackedPieceProduct(50, lemonTree, lemonPack);
+
+    IProduct[] productArray;
+    PackedProductSet productSet;
+    IProduct[] nestedArray;
+    PackedProductSet nestedSet;
+    IProduct[] batchArray;
     ProductBatch productBatch;
-    BeginStringFilter filter;
-    IProduct[] weightedSet;
-    ProductBatch weightedBatch;
+
+    BeginStringFilter beginFilter;
+    EndStringFilter endFilter;
+    ContainsFilter containsFilter;
 
     @BeforeEach
     public void setUp() {
-        packSet = new IProduct[]{bottleOfJuice, wrappedCandy, packetOfCoffeeBeans};
-        packedProductSet = new PackedProductSet("DSADASDA", box, packSet);
-        packSet2 = new IProduct[]{wrappedCandy, packedProductSet};
-        packedProductSet2 = new PackedProductSet("Lemon Tree the best lemons for anyone", box, packSet2);
-        packBatch = new IProduct[]{bottleOfJuice, wrappedCandy, packedProductSet2};
-        productBatch = new ProductBatch(packBatch, "batch with blood");
-        filter = new BeginStringFilter("Lemon");
-        weightedSet = new IProduct[]{wrappedCandy, packetOfCoffeeBeans};
-        weightedBatch = new ProductBatch(weightedSet, "weighted");
+        productArray = new IProduct[]{juiceBottle, candyWrapper, coffeeBag, lemonTreeBox};
+        productSet = new PackedProductSet("Boxed Items", box, productArray);
+
+        nestedArray = new IProduct[]{candyWrapper, lemonTreeBox, productSet};
+        nestedSet = new PackedProductSet("Nested Box", box, nestedArray);
+
+        batchArray = new IProduct[]{juiceBottle, candyWrapper, coffeeBag, lemonTreeBox, nestedSet};
+        productBatch = new ProductBatch(batchArray, "Mixed Products Batch");
+
+        beginFilter = new BeginStringFilter("Lemon"); // "Lemon Tree" и "Lemon Tree Box"
+        endFilter = new EndStringFilter("Bag"); // "Coffee Bag" и "Paper Bag"
+        containsFilter = new ContainsFilter("Candy"); // "Candy Wrapper" и "Chocolate Candy"
+    }
+
+
+
+    @Test
+    public void testCountByFilter() {
+        Assertions.assertEquals(1, ProductService.countByFilter(productBatch, beginFilter));
+        Assertions.assertEquals(1, ProductService.countByFilter(productBatch, endFilter));
+        Assertions.assertEquals(1, ProductService.countByFilter(productBatch, containsFilter));
     }
 
     @Test
-    public void countByFilter() {
-        Assertions.assertEquals(1, ProductService.countByFilter(productBatch, filter));
+    public void testCountByFilterDeep() {
+        Assertions.assertEquals(3, ProductService.countByFilterDeep(productBatch, beginFilter)); // Lemon Tree и Lemon Tree Box
+        Assertions.assertEquals(2, ProductService.countByFilterDeep(productBatch, endFilter)); // Coffee Bag и Paper Bag
+        Assertions.assertEquals(3, ProductService.countByFilterDeep(productBatch, containsFilter)); // Candy Wrapper и Chocolate Candy
     }
 
     @Test
-    public void countByFilterDeep() {
-        Assertions.assertEquals(1, ProductService.countByFilterDeep(productBatch, filter));
-    }
+    public void testCheckAllWeighted() {
+        IProduct[] weightedProducts = new IProduct[]{candyWrapper, coffeeBag};
+        ProductBatch weightedBatch = new ProductBatch(weightedProducts, "Weighted Only Batch");
 
-    @Test
-    public void checkAllWeighted() {
         Assertions.assertTrue(ProductService.checkAllWeighted(weightedBatch));
         Assertions.assertFalse(ProductService.checkAllWeighted(productBatch));
     }
