@@ -10,8 +10,8 @@ public class QuadraticEquationTest {
         QuadraticEquation equation = new QuadraticEquation(1, -3, 2);
         double[] roots = equation.solve();
         assertEquals(2, roots.length);
-        assertEquals(1.0, roots[0], 0.0001);
-        assertEquals(2.0, roots[1], 0.0001);
+        assertEquals(2.0, roots[0], 0.0001);
+        assertEquals(1.0, roots[1], 0.0001);
     }
 
     @Test
