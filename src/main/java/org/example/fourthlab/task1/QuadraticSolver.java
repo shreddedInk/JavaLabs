@@ -1,4 +1,4 @@
-package org.example.fourthlab;
+package org.example.fourthlab.task1;
 
 public class QuadraticSolver {
     private QuadraticEquation equation;
@@ -12,7 +12,13 @@ public class QuadraticSolver {
         if (roots.length == 0) {
             throw new NoRealRootsException("No real roots found.");
         }
-        return roots[roots.length - 1];
+        double largestRoot = roots[0];
+        for (double root : roots) {
+            if (root > largestRoot) {
+                largestRoot = root;
+            }
+        }
+        return largestRoot;
     }
 }
 
@@ -21,4 +27,3 @@ class NoRealRootsException extends Exception {
         super(message);
     }
 }
-

@@ -1,4 +1,4 @@
-package org.example.fourthlab;
+package org.example.fourthlab.task1;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,10 +7,10 @@ public class QuadraticSolverTest {
 
     @Test
     public void testGetLargestRootWithTwoRealRoots() throws NoRealRootsException {
-        QuadraticEquation equation = new QuadraticEquation(1, -3, 2);
+        QuadraticEquation equation = new QuadraticEquation(1, 7, 6);
         QuadraticSolver solver = new QuadraticSolver(equation);
         double largestRoot = solver.getLargestRoot();
-        assertEquals(2.0, largestRoot, 0.0001);
+        assertEquals(-1.0, largestRoot, 0.0001); // -6 -1
     }
 
     @Test

@@ -1,4 +1,4 @@
-package org.example.fourthlab;
+package org.example.fourthlab.task1;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,11 +7,11 @@ public class QuadraticEquationTest {
 
     @Test
     public void testTwoRealRoots() {
-        QuadraticEquation equation = new QuadraticEquation(1, -3, 2);
+        QuadraticEquation equation = new QuadraticEquation(1, 7, 6);
         double[] roots = equation.solve();
         assertEquals(2, roots.length);
-        assertEquals(2.0, roots[0], 0.0001);
-        assertEquals(1.0, roots[1], 0.0001);
+        assertEquals(-1.0, roots[0], 0.0001);
+        assertEquals(-6.0, roots[1], 0.0001);
     }
 
     @Test
