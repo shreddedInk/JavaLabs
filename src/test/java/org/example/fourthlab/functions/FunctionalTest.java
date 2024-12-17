@@ -14,6 +14,13 @@ public class FunctionalTest {
     }
 
     @Test
+    public void testSumFunctionalSine() {
+        IFunction sineFunction = new SinusFunction(2, 10, 0, 2*Math.PI);
+        IFunctional<IFunction> sumFunctional = new SumFunctional<>();
+        assertEquals(0.0, sumFunctional.calculate(sineFunction), 0.0001);
+    }
+
+    @Test
     public void testIntegralFunctionalExponential() {
         IFunction exponentialFunction = new ExponentialFunction(1, 1, 0, 1);
         IFunctional<IFunction> integralFunctional = new IntegralFunctional<>(0, 1, 0.0001);
@@ -54,5 +61,13 @@ public class FunctionalTest {
         IFunction sineFunction = new SinusFunction(1, 1, 0, Math.PI / 2);
         IFunctional<IFunction> integralFunctional = new IntegralFunctional<>(0, Math.PI / 2, 0.0001);
         assertEquals(1.0, integralFunctional.calculate(sineFunction), 0.0001);
+    }
+
+    @Test
+    public void testIntegralFunctionalRational2() {
+        IFunction rationalFunction = new RationalFunction(2, 3, 5, 1, 1, 10);
+        IFunctional<IFunction> integralFunctional = new IntegralFunctional<>(1, 10, 0.0001);
+        double expected = (13.0 / 25.0) * Math.log(51.0 / 6.0) + 18.0 / 5.0;
+        assertEquals(expected, integralFunctional.calculate(rationalFunction), 0.0001);
     }
 }

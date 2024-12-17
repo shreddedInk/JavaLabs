@@ -5,11 +5,14 @@ import org.example.fourthlab.functions.IFunction;
 public class SumFunctional<T extends IFunction> implements IFunctional<T> {
     @Override
     public double calculate(T function) {
-        double sum = 0;
-        double step = 1;
-        for (double x = function.getLowerBound(); x <= function.getUpperBound(); x += step) {
-            sum += function.calculate(x);
-        }
-        return sum;
+        double lowerBound = function.getLowerBound();
+        double upperBound = function.getUpperBound();
+        double middle = (lowerBound + upperBound) / 2;
+
+        double leftValue = function.calculate(lowerBound);
+        double rightValue = function.calculate(upperBound);
+        double middleValue = function.calculate(middle);
+
+        return leftValue + rightValue + middleValue;
     }
 }

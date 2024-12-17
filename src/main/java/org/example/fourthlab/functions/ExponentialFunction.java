@@ -1,5 +1,6 @@
 package org.example.fourthlab.functions;
 
+//f(x) = Aexp(x) + B
 public class ExponentialFunction implements IFunction {
     private final double a;
     private final double b;

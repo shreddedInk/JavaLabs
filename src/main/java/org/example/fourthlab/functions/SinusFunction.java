@@ -1,5 +1,6 @@
 package org.example.fourthlab.functions;
 
+//f(x) = Asin(Bx)
 public class SinusFunction implements IFunction {
     private final double amplitude;
     private final double frequency;

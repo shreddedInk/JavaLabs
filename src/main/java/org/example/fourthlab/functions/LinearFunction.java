@@ -1,5 +1,6 @@
 package org.example.fourthlab.functions;
 
+// f(x) = Ax + B
 public class LinearFunction implements IFunction {
     private final double a;
     private final double b;
