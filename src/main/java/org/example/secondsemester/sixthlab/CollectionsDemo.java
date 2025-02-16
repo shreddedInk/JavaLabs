@@ -1,9 +1,6 @@
 package org.example.secondsemester.sixthlab;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CollectionsDemo {
     public int countOfEqualsSymbols(ArrayList<String> list, char symbol){
@@ -63,5 +60,69 @@ public class CollectionsDemo {
         return peopleWithMaxAge;
     }
 
+    public List<Human> createSortedListByFullName(Set<? extends Human> humanSet) {
+        List<Human> humanList = new ArrayList<>(humanSet);
+
+        humanList.sort(Comparator
+                .comparing(Human::getSurname)
+                .thenComparing(Human::getName)
+                .thenComparing(Human::getPatronymic));
+
+        return humanList;
+    }
+
+    public Set<Human> getPeopleByIds(Map<Integer, Human> idToHumanMap, Set<Integer> ids) {
+        Set<Human> resultSet = new HashSet<>();
+
+        for (Integer id : ids) {
+            if (idToHumanMap.containsKey(id)) {
+                resultSet.add(idToHumanMap.get(id));
+            }
+        }
+
+        return resultSet;
+    }
+
+    public List<Integer> getIdsOfAdults(Map<Integer, Human> idToHumanMap, Set<Integer> ids) {
+        List<Integer> adultIds = new ArrayList<>();
+
+        for (Integer id : ids) {
+            if (idToHumanMap.containsKey(id) && idToHumanMap.get(id).getAge() >= 18) {
+                adultIds.add(id);
+            }
+        }
+
+        return adultIds;
+    }
+
+    public Map<Integer, Integer> createIdToAgeMap(Map<Integer, Human> idToHumanMap, Set<Integer> ids) {
+        Map<Integer, Integer> idToAgeMap = new HashMap<>();
+
+        for (Integer id : ids) {
+            if (idToHumanMap.containsKey(id)) {
+                idToAgeMap.put(id, idToHumanMap.get(id).getAge());
+            }
+        }
+
+        return idToAgeMap;
+    }
+
+    public Map<Integer, List<Human>> createAgeToHumansMap(Set<Human> humans) {
+        Map<Integer, List<Human>> ageToHumansMap = new HashMap<>();
+
+        for (Human human : humans) {
+            int age = human.getAge();
+
+            List<Human> humansOfAge = ageToHumansMap.get(age);
+            if (humansOfAge == null) {
+                humansOfAge = new ArrayList<>();
+                ageToHumansMap.put(age, humansOfAge);
+            }
+
+            humansOfAge.add(human);
+        }
+
+        return ageToHumansMap;
+    }
 
 }
