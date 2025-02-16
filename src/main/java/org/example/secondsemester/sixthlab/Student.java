@@ -12,10 +12,7 @@ public class Student extends Human{
     }
 
     public Student(String surname, String name, String patronymic, int age, String department){
-        this.setName(name);
-        this.setSurname(surname);
-        this.setPatronymic(patronymic);
-        this.setAge(age);
+        super(surname, name, patronymic, age);
         this.department = department;
     }
 }

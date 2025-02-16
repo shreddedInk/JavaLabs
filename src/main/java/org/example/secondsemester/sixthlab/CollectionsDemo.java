@@ -33,15 +33,20 @@ public class CollectionsDemo {
         return withoutHuman;
     }
 
-    public ArrayList<Set<Integer>> setWithoutInterceptions(ArrayList<Set<Integer>> list, Set<Integer> set){
-        ArrayList<Set<Integer>> withoutInterceptions = new ArrayList<Set<Integer>>();
-        for (Set<Integer> integer : list){
-            if (Collections.disjoint(integer, set)){
-                withoutInterceptions.add(integer);
+    public ArrayList<Set<Integer>> setWithoutInterceptions(ArrayList<Set<Integer>> list, Set<Integer> set) {
+        ArrayList<Set<Integer>> withoutInterceptions = new ArrayList<>();
+        for (Set<Integer> subset : list) {
+            Set<Integer> modifiedSet = new HashSet<>(subset);
+            modifiedSet.removeAll(set);
+            if (!modifiedSet.isEmpty()) {
+                withoutInterceptions.add(modifiedSet);
             }
         }
         return withoutInterceptions;
     }
+
+
+
 
     public Set<Human> getPeopleWithMaxAge(ArrayList<? extends Human> humanList) {
         int maxAge = 0;
@@ -91,7 +96,7 @@ public class CollectionsDemo {
                 adultIds.add(id);
             }
         }
-
+        Collections.sort(adultIds);
         return adultIds;
     }
 
@@ -125,4 +130,30 @@ public class CollectionsDemo {
         return ageToHumansMap;
     }
 
+    public Map<Integer, Map<Character, List<Human>>> createComplexAgeMap(Set<Human> humans) {
+        Map<Integer, List<Human>> ageToHumansMap = createAgeToHumansMap(humans);
+        Map<Integer, Map<Character, List<Human>>> ageToLetterToHumansMap = new HashMap<>();
+
+        for (Map.Entry<Integer, List<Human>> entry : ageToHumansMap.entrySet()) {
+            int age = entry.getKey();
+            List<Human> humansOfAge = entry.getValue();
+
+            Map<Character, List<Human>> letterToHumansMap = new HashMap<>();
+
+            for (Human human : humansOfAge) {
+                char firstLetter = Character.toUpperCase(human.getSurname().charAt(0));
+                letterToHumansMap.computeIfAbsent(firstLetter, k -> new ArrayList<>()).add(human);
+            }
+
+            for (Map.Entry<Character, List<Human>> letterEntry : letterToHumansMap.entrySet()) {
+                List<Human> sortedList = createSortedListByFullName(new HashSet<>(letterEntry.getValue()));
+                Collections.reverse(sortedList);
+                letterEntry.setValue(sortedList);
+            }
+
+            ageToLetterToHumansMap.put(age, letterToHumansMap);
+        }
+
+        return ageToLetterToHumansMap;
+    }
 }

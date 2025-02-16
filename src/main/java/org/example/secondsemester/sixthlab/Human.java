@@ -50,4 +50,11 @@ public class Human {
     public int hashCode() {
         return Objects.hash(surname, name, patronymic, age);
     }
+
+    public Human(String surname, String name, String patronymic, int age){
+        this.name = name;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.age = age;
+    }
 }
