@@ -16,16 +16,16 @@ public class CollectionsDemoTest {
     @Before
     public void setUp() {
         collectionsDemo = new CollectionsDemo();
-        human1 = new Human("Smith", "John", "A.", 25);
-        human2 = new Human("Doe", "Jane", "B.", 30);
-        human3 = new Human("Smith", "Alice", "C.", 30);
-        student1 = new Student("Brown", "Bob", "D.", 20, "Computer Science");
+        human1 = new Human("Moskalenko", "Miron", "Asnadjas", 25);
+        human2 = new Human("Markov", "Slavik", "Brooo", 30);
+        human3 = new Human("Moskalenko", "Beatles", "Whryyyy", 30);
+        student1 = new Student("Typical", "Student", "Omsu", 20, "Computer Science");
     }
 
     @Test
-    public void testCountOfEqualsSymbols() {
+    public void testCountOfFirstEqualsSymbols() {
         ArrayList<String> list = new ArrayList<>(Arrays.asList("apple", "banana", "avocado"));
-        assertEquals(2, collectionsDemo.countOfEqualsSymbols(list, 'a'));
+        assertEquals(2, collectionsDemo.countOfFirstEqualsSymbols(list, 'a'));
     }
 
     @Test
@@ -86,9 +86,9 @@ public class CollectionsDemoTest {
 
     @Test
     public void testGetIdsOfAdults() {
-        Student student2 = new Student("White", "Eve", "E.", 16, "Mathematics");
-        Human human4 = new Human("Taylor", "Max", "F.", 15);
-        Student student3 = new Student("Green", "Sam", "G.", 22, "Physics");
+        Student student2 = new Student("Aboba", "aBOBA", "YYYYYY", 16, "Mathematics");
+        Human human4 = new Human("fctik", "smthg", "EEEEEEE", 15);
+        Student student3 = new Student("Stud", "Stud", "Stud", 22, "Physics");
 
         Map<Integer, Human> idToHumanMap = Map.of(
                 1, human1,

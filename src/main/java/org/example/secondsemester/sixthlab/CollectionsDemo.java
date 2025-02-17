@@ -3,7 +3,7 @@ package org.example.secondsemester.sixthlab;
 import java.util.*;
 
 public class CollectionsDemo {
-    public int countOfEqualsSymbols(ArrayList<String> list, char symbol){
+    public int countOfFirstEqualsSymbols(ArrayList<String> list, char symbol){
         int count = 0;
         for (String str : list){
             if (str.charAt(0)==symbol){
