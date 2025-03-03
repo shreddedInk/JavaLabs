@@ -14,7 +14,7 @@ public class CollectionsDemo {
     }
 
     public ArrayList<Human> SameSurnamesListMaker(ArrayList<Human> list, Human human){
-        ArrayList<Human> surHumans = new ArrayList<Human>();
+        ArrayList<Human> surHumans = new ArrayList<>();
         for (Human surHuman : list){
             if (surHuman.getSurname().equals(human.getSurname())){
                 surHumans.add(surHuman);
@@ -23,8 +23,8 @@ public class CollectionsDemo {
         return surHumans;
     }
 
-    public ArrayList<Human> CopyWithoutChoosen(ArrayList<Human> list, Human human){
-        ArrayList<Human> withoutHuman = new ArrayList<Human>();
+    public ArrayList<Human> CopyWithoutChosen(ArrayList<Human> list, Human human){
+        ArrayList<Human> withoutHuman = new ArrayList<>();
         for (Human humans : list){
             if (!humans.equals(human)){
                 withoutHuman.add(humans);
@@ -33,16 +33,16 @@ public class CollectionsDemo {
         return withoutHuman;
     }
 
-    public ArrayList<Set<Integer>> setWithoutInterceptions(ArrayList<Set<Integer>> list, Set<Integer> set) {
-        ArrayList<Set<Integer>> withoutInterceptions = new ArrayList<>();
-        for (Set<Integer> subset : list) {
-            Set<Integer> modifiedSet = new HashSet<>(subset);
-            modifiedSet.removeAll(set);
-            if (!modifiedSet.isEmpty()) {
-                withoutInterceptions.add(modifiedSet);
+    public ArrayList<Set<Integer>> setWithoutInterceptions(ArrayList<Set<Integer>> listOfSets, Set<Integer> integerSet) {
+        ArrayList<Set<Integer>> ans = new ArrayList<>();
+        for (Set<Integer> set: listOfSets){
+            boolean f = false;
+            for(Integer i : set){
+                f |= integerSet.contains(i);
             }
+            if(!f) ans.add(set);
         }
-        return withoutInterceptions;
+        return ans;
     }
 
 
@@ -50,7 +50,7 @@ public class CollectionsDemo {
 
     public Set<Human> getPeopleWithMaxAge(ArrayList<? extends Human> humanList) {
         int maxAge = 0;
-        Set<Human> peopleWithMaxAge = new HashSet<Human>();
+        Set<Human> peopleWithMaxAge = new HashSet<>();
         for (Human human : humanList) {
             if (human.getAge() > maxAge) {
                 maxAge = human.getAge();
@@ -118,11 +118,7 @@ public class CollectionsDemo {
         for (Human human : humans) {
             int age = human.getAge();
 
-            List<Human> humansOfAge = ageToHumansMap.get(age);
-            if (humansOfAge == null) {
-                humansOfAge = new ArrayList<>();
-                ageToHumansMap.put(age, humansOfAge);
-            }
+            List<Human> humansOfAge = ageToHumansMap.computeIfAbsent(age, k -> new ArrayList<>());
 
             humansOfAge.add(human);
         }
@@ -130,7 +126,7 @@ public class CollectionsDemo {
         return ageToHumansMap;
     }
 
-    public Map<Integer, Map<Character, List<Human>>> createComplexAgeMap(Set<Human> humans) {
+    public Map<Integer, Map<Character, List<Human>>> createComplexAgeMapByFirstLetter(Set<Human> humans) {
         Map<Integer, List<Human>> ageToHumansMap = createAgeToHumansMap(humans);
         Map<Integer, Map<Character, List<Human>>> ageToLetterToHumansMap = new HashMap<>();
 

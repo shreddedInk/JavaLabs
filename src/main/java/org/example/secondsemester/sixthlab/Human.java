@@ -1,8 +1,11 @@
 package org.example.secondsemester.sixthlab;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Human {
+public class Human implements Comparable<Human>{
     private String surname, name, patronymic;
     private int age;
 
@@ -56,5 +59,14 @@ public class Human {
         this.surname = surname;
         this.patronymic = patronymic;
         this.age = age;
+    }
+
+    @Override
+    public int compareTo(@NotNull Human other) {
+        return Comparator
+                .comparing(Human::getSurname)
+                .thenComparing(Human::getName)
+                .thenComparing(Human::getPatronymic)
+                .compare(this, other);
     }
 }
