@@ -1,27 +1,35 @@
 package org.example.secondsemester.seventhlab.serialize;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
+public class House implements Serializable {
+    private static final long serialVersionUID = 1L; // Добавляем serialVersionUID
 
-class House implements Serializable {
     private String cadastralNumber;
     private String address;
-    private Person senior;
+    private Person manager;
     private List<Flat> flats;
 
-    public House(String cadastralNumber, String address, Person senior, List<Flat> flats) {
+    public House() {}
+
+    public House(String cadastralNumber, String address, Person manager, List<Flat> flats) {
         this.cadastralNumber = cadastralNumber;
         this.address = address;
-        this.senior = senior;
+        this.manager = manager;
         this.flats = flats;
     }
 
     public String getCadastralNumber() { return cadastralNumber; }
     public String getAddress() { return address; }
-    public Person getSenior() { return senior; }
+    public Person getManager() { return manager; }
     public List<Flat> getFlats() { return flats; }
+
+    public void setCadastralNumber(String cadastralNumber) { this.cadastralNumber = cadastralNumber; }
+    public void setAddress(String address) { this.address = address; }
+    public void setManager(Person manager) { this.manager = manager; }
+    public void setFlats(List<Flat> flats) { this.flats = flats; }
 
     @Override
     public boolean equals(Object o) {
@@ -30,12 +38,12 @@ class House implements Serializable {
         House house = (House) o;
         return Objects.equals(cadastralNumber, house.cadastralNumber) &&
                 Objects.equals(address, house.address) &&
-                Objects.equals(senior, house.senior) &&
+                Objects.equals(manager, house.manager) &&
                 Objects.equals(flats, house.flats);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cadastralNumber, address, senior, flats);
+        return Objects.hash(cadastralNumber, address, manager, flats);
     }
 }

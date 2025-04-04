@@ -1,0 +1,14 @@
+Serialized JSON: {"cadastralNumber":"123-ABC",
+"address":"Main Street 1",
+"manager":
+{"firstName":"John",
+"lastName":"Doe",
+"middleName":"Middle",
+"birthDate":"2025-03-18"},
+"flats":[{"number":10,
+"area":60.0,
+"owners":[{"firstName":"John","lastName":"Doe","middleName":"Middle","birthDate":"2025-03-18"}]}]}
+
+Person owner = new Person("John", "Doe", "Middle", new Date());
+        Flat flat = new Flat(10, 60.0, List.of(owner));
+        House house = new House("123-ABC", "Main Street 1", owner, List.of(flat));
