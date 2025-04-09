@@ -69,4 +69,8 @@ public class Human implements Comparable<Human>{
                 .thenComparing(Human::getPatronymic)
                 .compare(this, other);
     }
+
+    private int Test(){
+        return 0;
+    }
 }
