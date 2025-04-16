@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LambdaRunnerTest {
 
+    String str;
+
     private static final Human person1 = new Human("Moskalenko", "Miron", "Valerievich", 19, Human.Gender.MALE);
     private static final Human person2 = new Human("askdad", "dasdsadad", "dasdsad", 30, Human.Gender.FEMALE);
     private static final Human person3 = new Human("Markov", "Slavic", null, 20, Human.Gender.MALE);
@@ -12,6 +14,7 @@ class LambdaRunnerTest {
 
     @Test
     void testRunStringOperator() {
+
         assertEquals(5, LambdaRunner.runStringOperator(LambdaDemo.string_length, "Hello"));
         assertEquals(0, LambdaRunner.runStringOperator(LambdaDemo.string_length, ""));
     }
