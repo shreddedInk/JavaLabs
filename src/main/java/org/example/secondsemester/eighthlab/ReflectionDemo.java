@@ -46,4 +46,51 @@ public class ReflectionDemo {
         }
         return list;
     }
+
+    public static int executeElementsImplementingExecutable(List<Object> list) {
+        int count = 0;
+        for (Object element : list) {
+            if (element instanceof Executable) {
+                ((Executable) element).execute();
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static List<String> getGettersAndSetters(Object object) {
+        List<String> result = new ArrayList<>();
+
+        if (object == null) {
+            throw new IllegalArgumentException("Object cannot be null");
+        }
+
+        Class<?> clazz = object.getClass();
+        Method[] methods = clazz.getMethods();
+
+        for (Method method : methods) {
+            int modifiers = method.getModifiers();
+
+            if (Modifier.isPublic(modifiers) && !Modifier.isStatic(modifiers)) {
+                String name = method.getName();
+                Class<?> returnType = method.getReturnType();
+                Class<?>[] params = method.getParameterTypes();
+
+                if (name.startsWith("get") && name.length() > 3
+                        && params.length == 0
+                        && returnType != void.class) {
+                    result.add(name);
+                }
+
+                else if (name.startsWith("set") && name.length() > 3
+                        && params.length == 1
+                        && returnType == void.class) {
+                    result.add(name);
+                }
+            }
+        }
+        return result;
+    }
+
+
 }
