@@ -1,1 +1,1 @@
-# JavaSecondLab
+# JavaLabs
