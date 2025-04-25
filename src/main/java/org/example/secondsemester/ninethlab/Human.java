@@ -10,7 +10,7 @@ public class Human {
     private Gender gender;
 
     public enum Gender {
-        MALE, FEMALE
+        FEMALE, MALE
     }
 
     public Human(String lastName, String firstName, String middleName, int age, Gender gender) {
